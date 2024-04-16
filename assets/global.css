@@ -1,0 +1,185 @@
+@import url('IBM Plex Sans.css');
+@import url('Material Icons.css');
+
+:root {
+    --font: 'IBM Plex Sans Regular', sans-serif;
+    --font-medium: 'IBM Plex Sans Medium', sans-serif;
+
+    /* font sizes */
+    --x-small-size: 0.8rem;
+    --small-size: 1.13rem;
+    --standard-size: 1.5rem;
+    --headline-size: 2.25rem;
+    --title-size: 3rem;
+
+    /* Colors */
+    --error-color: #ef2626;
+    --accent-color: #ed6e00;
+    --light-color: #faf8f6;
+    --dark-color: #000;
+    --background-color: #d9e2ec;
+    --primary-color: #001e3e;
+    --secondary-color: rgba(0, 30, 62, 0.85);
+    --tertiary-color: rgba(0, 30, 62, 0.6);
+}
+
+/* Text */
+.title {
+    font-size: var(--title-size);
+    text-transform: uppercase;
+    font-family: var(--font-medium);
+    color: var(--dark-color);
+}
+
+.title.small {
+    font-size: var(--standard-size);
+}
+
+.title.small.dark {
+    color: var(--light-color);
+}
+
+.title.dark {
+    color: var(--light-color);
+}
+
+.headline {
+    font-size: var(--headline-size);
+    font-family: var(--font-medium);
+    color: var(--dark-color);
+}
+
+.headline.dark {
+    color: var(--light-color);
+}
+
+.headline3 {
+    font-size: var(--standard-size);
+    font-family: var(--font-medium);
+    color: var(--dark-color);
+}
+
+.headline3.dark {
+    color: var(--light-color);
+}
+
+.headline3.error {
+    color: var(--error-color);
+}
+
+.headline3.accent {
+    color: var(--accent-color);
+}
+
+.headline4 {
+    font-size: var(--small-size);
+    font-family: var(--font-medium);
+    color: var(--dark-color);
+}
+
+.headline4.dark {
+    color: var(--light-color);
+}
+
+.headline4.error {
+    color: var(--error-color);
+}
+
+.headline4.accent {
+    color: var(--accent-color);
+}
+
+.text {
+    font-size: var(--standard-size);
+    font-family: var(--font);
+    color: var(--dark-color);
+}
+
+.text.dark {
+    color: var(--light-color);
+}
+
+.text.error {
+    color: var(--error-color);
+}
+
+.text.small {
+    font-size: var(--small-size);
+    font-family: var(--font);
+    color: var(--dark-color);
+}
+
+.text.small.dark {
+    color: var(--light-color);
+}
+
+.text.small.error {
+    color: var(--error-color);
+}
+
+.text.x-small {
+    font-size: var(--x-small-size);
+    font-family: var(--font);
+    color: var(--dark-color);
+}
+
+.text.x-small.dark {
+    color: var(--light-color);
+}
+
+/* Material Icons */
+.material-icons {
+    font-family: 'Material Icons', emoji;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px; /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark {
+    color: var(--primary-color);
+}
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light {
+    color: var(--background-color);
+}
+
+.material-icons.md-accent {
+    color: var(--accent-color);
+}
