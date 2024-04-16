@@ -1,24 +1,50 @@
 <script setup lang="ts">
-import {type MemoryCard, useMemoryCard} from "~/composables/useMemoryCard";
+import {type MemoryCard, MemoryCardType, useMemoryCard} from "~/composables/useMemoryCard";
 import type {Ref} from "vue";
 
 const memoryCardHook = useMemoryCard()
 
 const correctCards: Ref<MemoryCard[] | null> = ref(null)
-const allCards: Ref<MemoryCard[] | null> = ref(null)
+const wrongCards: Ref<MemoryCard[] | null> = ref(null)
+const currentStage: Ref<MemoryCardType> = ref(MemoryCardType.Text)
 
 onMounted(() => {
   correctCards.value = memoryCardHook.getCorrectCards(5)
-  allCards.value = memoryCardHook.getAllCards()
+  wrongCards.value = memoryCardHook.getAllCards()
 })
+
+function nextStage() {
+  switch (currentStage.value) {
+    case MemoryCardType.Text:
+      currentStage.value = MemoryCardType.Icon
+      break
+    case MemoryCardType.Icon:
+      currentStage.value = MemoryCardType.TextIcon
+      break
+    case MemoryCardType.TextIcon:
+      currentStage.value = MemoryCardType.Color
+      break
+    case MemoryCardType.Color:
+      currentStage.value = MemoryCardType.Text
+      break
+  }
+}
 </script>
 
 <template>
-  <div v-for="card in correctCards" :key="card.cardId" class="row">
-    <MemoryCard :cardType="MemoryCardType.TextIcon" :card="card"/>
+  <span class="headline4">Current Stage: {{ currentStage }}</span>
+  <button @click="nextStage">next Stage</button>
+  <br />
+
+  <span class="headline">Correct Cards:</span>
+  <div class="row">
+    <MemoryCard v-for="card in correctCards" :key="card.cardId" :cardType="currentStage" :card="card"/>
   </div>
-  <div v-for="card in allCards" :key="card.cardId" class="row">
-    <MemoryCard :cardType="MemoryCardType.TextIcon" :card="card"/>
+  <br />
+
+  <span class="headline">Wrong Cards:</span>
+  <div class="row">
+    <MemoryCard v-for="card in wrongCards" :key="card.cardId" :cardType="currentStage" :card="card"/>
   </div>
 </template>
 
@@ -26,8 +52,9 @@ onMounted(() => {
 .row {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0 6rem;
 }
 </style>
