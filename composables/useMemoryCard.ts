@@ -27,7 +27,7 @@ export const useMemoryCard = () => {
 
   const getCorrectCards = (length: number): MemoryCard[] => {
     const range: number[] = Array.from({length: length}, (value, key) => key)
-    const startArr: MemoryCard[] = possibleCards
+    const startArr: MemoryCard[] = [...possibleCards]
     const endArr: MemoryCard[] = []
 
     for (let i in range) {

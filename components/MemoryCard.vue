@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import {type MemoryCard, type MemoryCardType} from "~/composables/useMemoryCard";
 
-const props = defineProps<{ cardType: MemoryCardType, card: MemoryCard }>()
+const props = defineProps<{ cardType: MemoryCardType, card: MemoryCard, chosen: boolean }>()
 </script>
 
 <template>
-  <div class="card" v-if="props.cardType === MemoryCardType.Text">
+  <div :class="props.chosen ? 'card chosen' : 'card'" v-if="props.cardType === MemoryCardType.Text">
     <span class="text">{{ props.card.name }}</span>
   </div>
-  <div class="card" v-if="props.cardType === MemoryCardType.Icon">
+  <div :class="props.chosen ? 'card chosen' : 'card'" v-if="props.cardType === MemoryCardType.Icon">
     <span class="material-icons md-48">{{ props.card.icon }}</span>
   </div>
-  <div class="card" v-if="props.cardType === MemoryCardType.TextIcon">
+  <div :class="props.chosen ? 'card chosen' : 'card'" v-if="props.cardType === MemoryCardType.TextIcon">
     <span class="material-icons md-36" style="grid-row: 1">{{ props.card.icon }}</span>
     <span class="text" style="grid-row: 2">{{ props.card.name }}</span>
   </div>
-  <div class="card" v-if="props.cardType === MemoryCardType.Color">
+  <div :class="props.chosen ? 'card chosen' : 'card'" v-if="props.cardType === MemoryCardType.Color">
     <span class="material-icons md-36" :style="`color: ${props.card.color}; grid-row: 1`">{{ props.card.icon }}</span>
     <span class="text" style="grid-row: 2">{{ props.card.name }}</span>
   </div>
@@ -34,5 +34,9 @@ const props = defineProps<{ cardType: MemoryCardType, card: MemoryCard }>()
   text-align: center;
   background-color: var(--light-color);
   padding: 12px;
+}
+
+.card.chosen {
+  background-color: var(--background-color);
 }
 </style>
