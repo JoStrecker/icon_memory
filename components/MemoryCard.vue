@@ -44,8 +44,4 @@ const props = defineProps<{ cardType: MemoryCardType, card: MemoryCard, chosen: 
 .card.chosen {
   background-color: var(--background-color);
 }
-
-.card:hover {
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
 </style>

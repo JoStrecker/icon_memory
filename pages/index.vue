@@ -192,7 +192,9 @@ function onCardClick(card: MemoryCard) {
     </div>
 
     <div class="gameContainer">
-      <button v-if="!started" @click="startGame" class="button" title="Start Game">Start Game</button>
+      <div v-if="!started" class="row">
+        <button @click="startGame" class="button" title="Start Game">Start Game</button>
+      </div>
       <GameField v-else :cards="field" :interactive="interactive" :currentStage="currentStage"
                  :clickedCards="clickedCards" @onCardClick="onCardClick"/>
     </div>
@@ -213,8 +215,8 @@ function onCardClick(card: MemoryCard) {
   flex-grow: 1;
   align-content: center;
   align-items: center;
-  justify-content: center;
   justify-items: center;
+  justify-content: center;
   padding: 0 6rem;
 }
 
@@ -222,6 +224,7 @@ function onCardClick(card: MemoryCard) {
   background-color: var(--primary-color);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+  max-width: 30rem;
   width: 100%;
   height: 3.75rem;
   overflow: hidden;

@@ -13,12 +13,15 @@ const emits = defineEmits(['onCardClick'])
 <template>
   <div class="field">
     <div v-if="props.interactive" class="row">
-      <div v-for="card in props.cards" :key="card.cardId" @click="emits('onCardClick', card)" style="cursor: pointer">
+      <div v-for="card in props.cards" :key="card.cardId" @click="emits('onCardClick', card)"
+           class="enabledCardContainer">
         <MemoryCard :cardType="currentStage" :card="card" :chosen="clickedCards.includes(card)"/>
       </div>
     </div>
     <div v-else class="row">
-      <MemoryCard v-for="card in props.cards" :key="card.cardId" :cardType="currentStage" :card="card" :chosen="false"/>
+      <div v-for="card in props.cards" :key="card.cardId" class="disabledCardContainer">
+        <MemoryCard :cardType="currentStage" :card="card" :chosen="false"/>
+      </div>
     </div>
   </div>
 </template>
@@ -36,5 +39,18 @@ const emits = defineEmits(['onCardClick'])
   width: 100%;
   height: 100%;
   align-content: center;
+}
+
+.enabledCardContainer {
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.disabledCardContainer {
+  cursor: not-allowed;
+}
+
+.enabledCardContainer:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 </style>
