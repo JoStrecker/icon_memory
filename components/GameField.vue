@@ -30,7 +30,6 @@ const emits = defineEmits(['onCardClick'])
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
-  padding: 0 6rem;
 }
 
 .field {

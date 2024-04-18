@@ -12,10 +12,11 @@ const field: Ref<MemoryCard[]> = ref([])
 const clickedCards: Ref<MemoryCard[]> = ref([])
 
 const currentStage: Ref<MemoryCardType> = ref(MemoryCardType.Text)
+const currentAmount: Ref<integer> = ref(3)
 const interactive: Ref<boolean> = ref(false)
 const countdown: Ref<Duration> = ref(Duration.fromMillis(5000))
 const started: Ref<boolean> = ref(false)
-const scores: Ref<string[]> = ref([])
+const scores: Ref<Score[]> = ref([])
 const finished: Ref<boolean> = ref(false)
 const interval: Ref<NodeJS.Timeout | null> = ref(null)
 
@@ -28,7 +29,7 @@ function startCountdown(seconds: integer): void {
     if (newTimeout < 1) {
       finishRound()
     }
-  }, 1000)
+  }, 100)
 }
 
 function stopCountdown() {
@@ -40,7 +41,7 @@ function stopCountdown() {
 function startGame() {
   resetGame()
 
-  correctCards.value = memoryCardHook.getCorrectCards(5)
+  correctCards.value = memoryCardHook.getCorrectCards(currentAmount.value)
   allCards.value = memoryCardHook.getAllCards()
   field.value = correctCards.value
 
@@ -54,11 +55,6 @@ function startGame() {
 
 function nextStage() {
   if (interactive.value) {
-    console.log("Reset Correct Cards")
-    correctCards.value = memoryCardHook.getCorrectCards(5)
-    console.log(`Correct Cards: ${correctCards.value.map(card => {
-      return card.name
-    })}`)
     switch (currentStage.value) {
       case MemoryCardType.Text:
         currentStage.value = MemoryCardType.Icon
@@ -70,10 +66,20 @@ function nextStage() {
         currentStage.value = MemoryCardType.Color
         break
       case MemoryCardType.Color:
-        finished.value = true
-        started.value = false
-        return
+        if (currentAmount.value === 3) {
+          currentAmount.value = 5
+          currentStage.value = MemoryCardType.Text
+        } else {
+          finished.value = true
+          started.value = false
+          return
+        }
     }
+    console.log("Reset Correct Cards")
+    correctCards.value = memoryCardHook.getCorrectCards(currentAmount.value)
+    console.log(`Correct Cards: ${correctCards.value.map(card => {
+      return card.name
+    })}`)
     startCountdown(5)
     field.value = correctCards.value
   } else {
@@ -102,8 +108,14 @@ function finishRound() {
       }
     }
 
-    scores.value.push(`${counter}/5`)
-    console.log(`Roundscore: ${counter}/5`)
+    scores.value.push(
+        <Score>{
+          round: currentStage.value,
+          score: `${counter}/${currentAmount.value}`,
+          time: `${(Duration.fromMillis(30000).minus(countdown.value)).toFormat('mm:ss')}`,
+        }
+    )
+    console.log(`Roundscore: ${counter}/${currentAmount.value}`)
 
     clickedCards.value = []
   }
@@ -136,6 +148,7 @@ function resetGame() {
   clickedCards.value = []
 
   currentStage.value = MemoryCardType.Text
+  currentAmount.value = 3
   interactive.value = false
   countdown.value = Duration.fromMillis(5000)
   started.value = false
@@ -153,27 +166,35 @@ function onCardClick(card: MemoryCard) {
     clickedCards.value.push(card)
   }
 
-  if (clickedCards.value.length === 5) {
+  if (clickedCards.value.length === currentAmount.value) {
     finishRound()
   }
+}
+
+interface Score {
+  round: integer,
+  score: string,
+  time: string,
 }
 </script>
 
 <template>
-  <div class="row">
-    <span v-if="finished" v-for="score in scores" class="text">{{ score }}</span>
-    <span v-else class="text">{{ countdown.toFormat('mm:ss') }}</span>
-  </div>
+  <div style="display: flex; height: 100vh; flex-direction: column">
+    <div class="row">
+      <span v-if="finished" v-for="score in scores" class="text">{{ score.score }} ({{ score.time }})</span>
+      <span v-else class="text">{{ countdown.toFormat('mm:ss') }}</span>
+    </div>
 
-  <div v-if="started" class="row">
-    <span v-if="interactive" class="headline3">Wähle die 5 korrekten Karten</span>
-    <span v-else class="headline3">Merke dir diese 5 Karten</span>
-  </div>
+    <div v-if="started" class="row">
+      <span v-if="interactive" class="headline3">Wähle die {{ currentAmount }} korrekten Karten</span>
+      <span v-else class="headline3">Merke dir diese {{ currentAmount }} Karten</span>
+    </div>
 
-  <div class="gameContainer">
-    <button v-if="!started" @click="startGame" class="text small">Start Game</button>
-    <GameField v-else :cards="field" :interactive="interactive" :currentStage="currentStage"
-               :clickedCards="clickedCards" @onCardClick="onCardClick"/>
+    <div class="gameContainer">
+      <button v-if="!started" @click="startGame" class="button" title="Start Game">Start Game</button>
+      <GameField v-else :cards="field" :interactive="interactive" :currentStage="currentStage"
+                 :clickedCards="clickedCards" @onCardClick="onCardClick"/>
+    </div>
   </div>
 </template>
 
@@ -188,7 +209,45 @@ function onCardClick(card: MemoryCard) {
 }
 
 .gameContainer {
+  flex-grow: 1;
   align-content: center;
-  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  padding: 0 6rem;
+}
+
+.button {
+  background-color: var(--primary-color);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  width: 100%;
+  height: 3.75rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0.63rem 1.25rem;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: var(--standard-size);
+  color: var(--light-color);
+  font-family: var(--font-medium);
+}
+
+.button:enabled {
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--primary-color);
+  box-shadow: inset 0 4px 4px rgba(255, 255, 255, 0.25);
+}
+
+.button:disabled {
+  background-color: var(--tertiary-color);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: var(--font);
 }
 </style>
