@@ -15,16 +15,21 @@ const props = defineProps<{ cardType: MemoryCardType, card: MemoryCard, chosen: 
     <span class="material-icons md-36" style="grid-row: 1">{{ props.card.icon }}</span>
     <span class="text" style="grid-row: 2">{{ props.card.name }}</span>
   </div>
-  <div :class="props.chosen ? 'card chosen' : 'card'" v-if="props.cardType === MemoryCardType.Color">
+  <div :class="props.chosen ? 'card chosen' : 'card'" v-if="props.cardType === MemoryCardType.TextColor">
+    <span class="text" :style="`color: ${props.card.color}`">{{ props.card.name }}</span>
+  </div>
+  <div :class="props.chosen ? 'card chosen' : 'card'" v-if="props.cardType === MemoryCardType.IconColor">
+    <span class="material-icons md-36" :style="`color: ${props.card.color}`">{{ props.card.icon }}</span>
+  </div>
+  <div :class="props.chosen ? 'card chosen' : 'card'" v-if="props.cardType === MemoryCardType.TextIconColor">
     <span class="material-icons md-36" :style="`color: ${props.card.color}; grid-row: 1`">{{ props.card.icon }}</span>
-    <span class="text" style="grid-row: 2">{{ props.card.name }}</span>
+    <span class="text" :style="`color: ${props.card.color}; grid-row: 2`">{{ props.card.name }}</span>
   </div>
 </template>
 
 <style scoped>
 .card {
   border-radius: 12px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   width: 120px;
   height: 120px;
   display: grid;
@@ -38,5 +43,9 @@ const props = defineProps<{ cardType: MemoryCardType, card: MemoryCard, chosen: 
 
 .card.chosen {
   background-color: var(--background-color);
+}
+
+.card:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 </style>

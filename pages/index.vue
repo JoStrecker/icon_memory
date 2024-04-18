@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import {type MemoryCard, MemoryCardType, useMemoryCard} from "~/composables/useMemoryCard";
+import {type MemoryCard, MemoryCardType, type Score, useMemoryCard} from "~/composables/useMemoryCard";
 import type {Ref} from "vue";
 import {Duration} from "luxon";
 import type {integer} from "vscode-languageserver-types";
+import ScoreBoard from "~/components/ScoreBoard.vue";
 
 const memoryCardHook = useMemoryCard()
 
@@ -63,9 +64,15 @@ function nextStage() {
         currentStage.value = MemoryCardType.TextIcon
         break
       case MemoryCardType.TextIcon:
-        currentStage.value = MemoryCardType.Color
+        currentStage.value = MemoryCardType.TextColor
         break
-      case MemoryCardType.Color:
+      case MemoryCardType.TextColor:
+        currentStage.value = MemoryCardType.IconColor
+        break
+      case MemoryCardType.IconColor:
+        currentStage.value = MemoryCardType.TextIconColor
+        break
+      case MemoryCardType.TextIconColor:
         if (currentAmount.value === 3) {
           currentAmount.value = 5
           currentStage.value = MemoryCardType.Text
@@ -170,19 +177,13 @@ function onCardClick(card: MemoryCard) {
     finishRound()
   }
 }
-
-interface Score {
-  round: integer,
-  score: string,
-  time: string,
-}
 </script>
 
 <template>
   <div style="display: flex; height: 100vh; flex-direction: column">
     <div class="row">
-      <span v-if="finished" v-for="score in scores" class="text">{{ score.score }} ({{ score.time }})</span>
-      <span v-else class="text">{{ countdown.toFormat('mm:ss') }}</span>
+      <ScoreBoard v-if="finished" :scores="scores"/>
+      <span v-else-if="started" class="text">{{ countdown.toFormat('mm:ss') }}</span>
     </div>
 
     <div v-if="started" class="row">

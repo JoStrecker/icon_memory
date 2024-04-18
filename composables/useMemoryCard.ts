@@ -57,10 +57,12 @@ export interface MemoryCard {
 }
 
 export enum MemoryCardType {
-  Text,
-  Icon,
-  TextIcon,
-  Color,
+  Text = 'Text',
+  Icon = 'Icon',
+  TextIcon = 'Text mit Icon',
+  TextColor = 'farbiger Text',
+  IconColor = 'farbiges Icon',
+  TextIconColor = 'farbiger Text mit Icon',
 }
 
 export enum MemoryCardColor {
@@ -74,4 +76,10 @@ export enum MemoryCardColor {
   LightBlue = '#0775f6',
   LightGreen = '#81c13a',
   Orange = '#f39926',
+}
+
+export interface Score {
+  round: MemoryCardType,
+  score: string,
+  time: string,
 }
