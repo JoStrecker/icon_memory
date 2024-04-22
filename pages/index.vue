@@ -43,7 +43,7 @@ function startGame() {
   resetGame()
 
   correctCards.value = memoryCardHook.getCorrectCards(currentAmount.value)
-  allCards.value = memoryCardHook.getAllCards()
+  allCards.value = memoryCardHook.getAllCards(currentAmount.value)
   field.value = correctCards.value
 
   started.value = true
@@ -84,6 +84,7 @@ function nextStage() {
     }
     console.log("Reset Correct Cards")
     correctCards.value = memoryCardHook.getCorrectCards(currentAmount.value)
+    allCards.value = memoryCardHook.getAllCards(currentAmount.value)
     console.log(`Correct Cards: ${correctCards.value.map(card => {
       return card.name
     })}`)

@@ -13,6 +13,7 @@ export const useMemoryCard = () => {
     <MemoryCard>{cardId: 7, name: "Key", icon: "key", color: MemoryCardColor.LightBlue},
     <MemoryCard>{cardId: 8, name: "Done All", icon: "done_all", color: MemoryCardColor.LightGreen},
     <MemoryCard>{cardId: 9, name: "Javascript", icon: "javascript", color: MemoryCardColor.Orange},
+
     <MemoryCard>{cardId: 10, name: "Person", icon: "person", color: MemoryCardColor.Yellow},
     <MemoryCard>{cardId: 11, name: "Rocket Launch", icon: "rocket_launch", color: MemoryCardColor.Teal},
     <MemoryCard>{cardId: 12, name: "Diamond", icon: "diamond", color: MemoryCardColor.Blue},
@@ -23,11 +24,22 @@ export const useMemoryCard = () => {
     <MemoryCard>{cardId: 17, name: "Verified", icon: "verified", color: MemoryCardColor.LightGreen},
     <MemoryCard>{cardId: 18, name: "Flutter Dash", icon: "flutter_dash", color: MemoryCardColor.LightBlue},
     <MemoryCard>{cardId: 19, name: "Gesture", icon: "gesture", color: MemoryCardColor.Orange},
+
+    <MemoryCard>{cardId: 20, name: "Android", icon: "android", color: MemoryCardColor.Green},
+    <MemoryCard>{cardId: 21, name: "Anchor", icon: "anchor", color: MemoryCardColor.Teal},
+    <MemoryCard>{cardId: 22, name: "Chat", icon: "chat", color: MemoryCardColor.Blue},
+    <MemoryCard>{cardId: 23, name: "Voicemail", icon: "voicemail", color: MemoryCardColor.LightBlue},
+    <MemoryCard>{cardId: 24, name: "Emergency", icon: "emergency", color: MemoryCardColor.Red},
+    <MemoryCard>{cardId: 25, name: "Local Shipping", icon: "local_shipping", color: MemoryCardColor.LightGreen},
+    <MemoryCard>{cardId: 26, name: "QR Code", icon: "qr_code", color: MemoryCardColor.Purple},
+    <MemoryCard>{cardId: 27, name: "Two Wheeler", icon: "two_wheeler", color: MemoryCardColor.Pink},
+    <MemoryCard>{cardId: 28, name: "Medical Services", icon: "medical_services", color: MemoryCardColor.Orange},
+    <MemoryCard>{cardId: 29, name: "Fastfood", icon: "fastfood", color: MemoryCardColor.Yellow},
   ]
 
   const getCorrectCards = (length: number): MemoryCard[] => {
     const range: number[] = Array.from({length: length}, (value, key) => key)
-    const startArr: MemoryCard[] = [...possibleCards]
+    const startArr: MemoryCard[] = getAllCards(length)
     const endArr: MemoryCard[] = []
 
     for (let i in range) {
@@ -39,8 +51,8 @@ export const useMemoryCard = () => {
     return endArr
   }
 
-  const getAllCards = (): MemoryCard[] => {
-    return possibleCards
+  const getAllCards = (length: number): MemoryCard[] => {
+    return [...possibleCards].slice(0, length * 6)
   }
 
   return {
