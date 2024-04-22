@@ -47,7 +47,7 @@ function startGame() {
   field.value = correctCards.value
 
   started.value = true
-  startCountdown(5)
+  startCountdown(currentAmount.value * 1.5)
   console.log("--- Start Game ---")
   console.log(`Correct Cards: ${correctCards.value.map(card => {
     return card.name
@@ -74,7 +74,7 @@ function nextStage() {
         break
       case MemoryCardType.TextIconColor:
         if (currentAmount.value === 3) {
-          currentAmount.value = 5
+          currentAmount.value = 6
           currentStage.value = MemoryCardType.Text
         } else {
           finished.value = true
@@ -88,7 +88,7 @@ function nextStage() {
     console.log(`Correct Cards: ${correctCards.value.map(card => {
       return card.name
     })}`)
-    startCountdown(5)
+    startCountdown(currentAmount.value * 1.5)
     field.value = correctCards.value
   } else {
     startCountdown(30)
@@ -194,7 +194,7 @@ function onCardClick(card: MemoryCard) {
 
     <div class="gameContainer">
       <div v-if="!started" class="row">
-        <button @click="startGame" class="button" title="Start Game">Start Game</button>
+        <button @click="startGame" class="button" title="Start Game">Starte Test</button>
       </div>
       <GameField v-else :cards="field" :interactive="interactive" :currentStage="currentStage"
                  :clickedCards="clickedCards" @onCardClick="onCardClick"/>

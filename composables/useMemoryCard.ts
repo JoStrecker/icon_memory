@@ -35,6 +35,12 @@ export const useMemoryCard = () => {
     <MemoryCard>{cardId: 27, name: "Two Wheeler", icon: "two_wheeler", color: MemoryCardColor.Pink},
     <MemoryCard>{cardId: 28, name: "Medical Services", icon: "medical_services", color: MemoryCardColor.Orange},
     <MemoryCard>{cardId: 29, name: "Fastfood", icon: "fastfood", color: MemoryCardColor.Yellow},
+
+    <MemoryCard>{cardId: 30, name: "Trending Up", icon: "trending_up", color: MemoryCardColor.Green},
+    <MemoryCard>{cardId: 31, name: "Lightbulb", icon: "lightbulb", color: MemoryCardColor.Teal},
+    <MemoryCard>{cardId: 32, name: "Sports Bar", icon: "sports_bar", color: MemoryCardColor.Blue},
+    <MemoryCard>{cardId: 33, name: "Album", icon: "album", color: MemoryCardColor.LightBlue},
+    <MemoryCard>{cardId: 34, name: "Trending Down", icon: "trending_down", color: MemoryCardColor.Red},
   ]
 
   const getCorrectCards = (length: number): MemoryCard[] => {
@@ -52,7 +58,7 @@ export const useMemoryCard = () => {
   }
 
   const getAllCards = (length: number): MemoryCard[] => {
-    return [...possibleCards].slice(0, length * 6)
+    return [...possibleCards].slice(0, length * 6 - 1)
   }
 
   return {
