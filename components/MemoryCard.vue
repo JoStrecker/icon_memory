@@ -19,7 +19,7 @@ const props = defineProps<{ cardType: MemoryCardType, card: MemoryCard, chosen: 
     <span class="text" :style="`color: ${props.card.color}`">{{ props.card.name }}</span>
   </div>
   <div :class="props.chosen ? 'card chosen' : 'card'" v-if="props.cardType === MemoryCardType.IconColor">
-    <span class="material-icons md-36" :style="`color: ${props.card.color}`">{{ props.card.icon }}</span>
+    <span class="material-icons md-48" :style="`color: ${props.card.color}`">{{ props.card.icon }}</span>
   </div>
   <div :class="props.chosen ? 'card chosen' : 'card'" v-if="props.cardType === MemoryCardType.TextIconColor">
     <span class="material-icons md-36" :style="`color: ${props.card.color}; grid-row: 1`">{{ props.card.icon }}</span>

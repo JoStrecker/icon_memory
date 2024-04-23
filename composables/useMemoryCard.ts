@@ -78,9 +78,9 @@ export enum MemoryCardType {
   Text = 'Text',
   Icon = 'Icon',
   TextIcon = 'Text mit Icon',
-  TextColor = 'farbiger Text',
-  IconColor = 'farbiges Icon',
-  TextIconColor = 'farbiger Text mit Icon',
+  TextColor = 'Farbiger Text',
+  IconColor = 'Farbiges Icon',
+  TextIconColor = 'Farbiger Text mit Icon',
 }
 
 export enum MemoryCardColor {
