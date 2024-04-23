@@ -48,8 +48,8 @@ function startGame() {
 
   started.value = true
   startCountdown(currentAmount.value * 1.5)
-  console.log("--- Start Game ---")
-  console.log(`Correct Cards: ${correctCards.value.map(card => {
+  printDebug("--- Start Game ---")
+  printDebug(`Correct Cards: ${correctCards.value.map(card => {
     return card.name
   })}`)
 }
@@ -82,10 +82,10 @@ function nextStage() {
           return
         }
     }
-    console.log("Reset Correct Cards")
+    printDebug("Reset Correct Cards")
     correctCards.value = memoryCardHook.getCorrectCards(currentAmount.value)
     allCards.value = memoryCardHook.getAllCards(currentAmount.value)
-    console.log(`Correct Cards: ${correctCards.value.map(card => {
+    printDebug(`Correct Cards: ${correctCards.value.map(card => {
       return card.name
     })}`)
     startCountdown(currentAmount.value * 1.5)
@@ -101,11 +101,11 @@ function finishRound() {
   stopCountdown()
 
   if (interactive.value) {
-    console.log("--- Finish Round ---")
-    console.log(`Chosen Cards: ${clickedCards.value.map(card => {
+    printDebug("--- Finish Round ---")
+    printDebug(`Chosen Cards: ${clickedCards.value.map(card => {
       return card.name
     })}`)
-    console.log(`Correct Cards: ${correctCards.value.map(card => {
+    printDebug(`Correct Cards: ${correctCards.value.map(card => {
       return card.name
     })}`)
 
@@ -123,7 +123,7 @@ function finishRound() {
           time: `${(Duration.fromMillis(30000).minus(countdown.value)).toFormat('mm:ss')}`,
         }
     )
-    console.log(`Roundscore: ${counter}/${currentAmount.value}`)
+    printDebug(`Roundscore: ${counter}/${currentAmount.value}`)
 
     clickedCards.value = []
   }
@@ -166,7 +166,7 @@ function resetGame() {
 }
 
 function onCardClick(card: MemoryCard) {
-  console.log(`Clicked Card: ${card.name}`)
+  printDebug(`Clicked Card: ${card.name}`)
 
   if (clickedCards.value.includes(card)) {
     clickedCards.value.splice(clickedCards.value.indexOf(card), 1)
@@ -176,6 +176,12 @@ function onCardClick(card: MemoryCard) {
 
   if (clickedCards.value.length === currentAmount.value) {
     finishRound()
+  }
+}
+
+function printDebug(message: String) {
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(message)
   }
 }
 </script>
