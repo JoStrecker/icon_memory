@@ -17,13 +17,13 @@ function downloadCSV() {
 }
 
 function generateCSV(): string {
-  const headers = ['Runde', 'Zeit merken', 'Zeit auswählen', 'Richtig', 'Komplett'];
+  const headers = ['Runde', 'Anzahl', 'Richtig', 'Zeit Merken (in s)', 'Zeit Auswählen (in s)'];
   const rows = props.scores.map(score => [
     score.round,
-    getTotal(score) * 1.5,
-    score.time,
+    getTotal(score),
     getCorrect(score),
-    getTotal(score)
+    getTotal(score) * 1.5,
+    stringToTime(score.time)
   ]);
   return [
     headers.join(','),
@@ -44,6 +44,11 @@ function getRoundTime(score: Score): number {
   return totalScore * 1.5; // Assuming each correct answer takes 1.5 seconds
 }
 
+function stringToTime(timeString: string): number {
+  const timeArray = timeString.split(':');
+  return parseInt(timeArray[0]) * 60 + parseInt(timeArray[1]);
+}
+
 </script>
 
 <template>
@@ -52,17 +57,17 @@ function getRoundTime(score: Score): number {
     <table class="score-table">
       <tr style="border: 1px solid black; font-family: var(--font-medium)">
         <th>Runde</th>
-        <th>Zeit merken</th>
-        <th>Zeit auswählen</th>
+        <th>Anzahl</th>
         <th>Richtig</th>
-        <th>Komplett</th>
+        <th>Zeit Merken (in s)</th>
+        <th>Zeit Auswählen (in s)</th>
       </tr>
       <tr style="border: 1px solid black; font-family: var(--font)" v-for="score in props.scores" :key="score.round">
         <td>{{ score.round }}</td>
-        <td>{{ getRoundTime(score) }}</td>
-        <td>{{ score.time }}</td>
-        <td>{{ getCorrect(score) }}</td>
         <td>{{ getTotal(score) }}</td>
+        <td>{{ getCorrect(score) }}</td>
+        <td>{{ getRoundTime(score) }}</td>
+        <td>{{ stringToTime(score.time) }}</td>
       </tr>
     </table>
     <GameButton @click="downloadCSV" title="Ergebnis als CSV herunterladen"/>

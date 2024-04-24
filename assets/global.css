@@ -15,7 +15,8 @@
     /* Colors */
     --error-color: #ef2626;
     --accent-color: #ed6e00;
-    --light-color: #faf8f6;
+    --light-color: #f6f6f6;
+    --light-color-darker: #c8c8c8;
     --dark-color: #000;
     --background-color: #d9e2ec;
     --hover-color: #a3a3a3;
