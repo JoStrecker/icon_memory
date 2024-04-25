@@ -1,9 +1,9 @@
 <script setup lang="ts">
-defineProps<{ title: String }>()
+defineProps<{ title: string }>()
 </script>
 
 <template>
-  <button class="button" title=title>{{ title }}</button>
+  <button class="button" :title=title>{{ title }}</button>
 </template>
 
 <style scoped>
