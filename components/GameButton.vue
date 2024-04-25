@@ -21,6 +21,10 @@ defineProps<{ title: String }>()
   margin: 0 auto
 }
 
+.button:enabled {
+  cursor: pointer;
+}
+
 .button:hover {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }

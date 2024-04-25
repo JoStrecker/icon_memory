@@ -1,7 +1,10 @@
 import type {integer} from "vscode-languageserver-types";
 import MemoryCard from "~/components/MemoryCard.vue";
 
-export const useMemoryCard = () => {
+export const useMemoryCard: () => {
+  getCorrectCards: (length: number) => MemoryCard[];
+  getAllCards: (length: number) => MemoryCard[]
+} = () => {
   const possibleCards: MemoryCard[] = [
     <MemoryCard>{cardId: 0, name: "Landscape", icon: "landscape", color: MemoryCardColor.Green},
     <MemoryCard>{cardId: 1, name: "Home", icon: "home", color: MemoryCardColor.Blue},
