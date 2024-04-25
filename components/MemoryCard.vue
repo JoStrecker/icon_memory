@@ -42,6 +42,10 @@ const props = defineProps<{ cardType: MemoryCardType, card: MemoryCard, chosen: 
 }
 
 .card.chosen {
-  background-color: var(--background-color);
+  background-color: lightgrey;
+}
+
+.card, .card.chosen {
+  transition: background-color 0.2s ease;
 }
 </style>
