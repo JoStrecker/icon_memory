@@ -57,5 +57,4 @@ const emits = defineEmits(['onCardClick'])
 .enabledCardContainer, .enabledCardContainer:active, .enabledCardContainer:hover {
   transition: box-shadow 0.2s ease;
 }
-
 </style>
